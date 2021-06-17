@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    app:startDestination="@id/mainScreenFragment">
+
+    <fragment
+        android:id="@+id/mainScreenFragment"
+        android:name="com.example.todolist.MainScreenFragment"
+        android:label="fragment_main_screen"
+        tools:layout="@layout/fragment_main_screen" >
+        <action
+            android:id="@+id/action_mainScreenFragment_to_addToDoFragment2"
+            app:destination="@id/addToDoFragment2" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_editFragment"
+            app:destination="@id/editFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addToDoFragment2"
+        android:name="com.example.todolist.AddToDoFragment"
+        android:label="fragment_add_to_do"
+        tools:layout="@layout/fragment_add_to_do" />
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.example.todolist.EditFragment"
+        android:label="fragment_edit"
+        tools:layout="@layout/fragment_edit" />
+</navigation>

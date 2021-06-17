@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_nav"
+    app:startDestination="@id/completedFragment">
+
+    <fragment
+        android:id="@+id/completedFragment"
+        android:name="com.example.todolist.CompletedFragment"
+        android:label="fragment_completed"
+        tools:layout="@layout/fragment_completed" />
+    <fragment
+        android:id="@+id/progressFragment"
+        android:name="com.example.todolist.ProgressFragment"
+        android:label="fragment_progress"
+        tools:layout="@layout/fragment_progress" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.todolist.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+</navigation>
