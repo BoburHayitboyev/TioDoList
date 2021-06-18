@@ -11,17 +11,17 @@
         android:label="fragment_main_screen"
         tools:layout="@layout/fragment_main_screen" >
         <action
-            android:id="@+id/action_mainScreenFragment_to_addToDoFragment2"
-            app:destination="@id/addToDoFragment2" />
+            android:id="@+id/action_mainScreenFragment_to_addFragment"
+            app:destination="@id/addFragment" />
         <action
             android:id="@+id/action_mainScreenFragment_to_editFragment"
             app:destination="@id/editFragment" />
     </fragment>
     <fragment
-        android:id="@+id/addToDoFragment2"
-        android:name="com.example.todolist.AddToDoFragment"
+        android:id="@+id/addFragment"
+        android:name="com.example.todolist.AddFragment"
         android:label="fragment_add_to_do"
-        tools:layout="@layout/fragment_add_to_do" />
+        tools:layout="@layout/fragment_add" />
     <fragment
         android:id="@+id/editFragment"
         android:name="com.example.todolist.EditFragment"

@@ -43,7 +43,7 @@ class MainScreenFragment : Fragment() {
 
 
         binding.floatingActionButton.setOnClickListener {
-            val direction = MainScreenFragmentDirections.actionMainScreenFragmentToAddToDoFragment2()
+            val direction = MainScreenFragmentDirections.actionMainScreenFragmentToAddFragment()
             requireActivity().findNavController(com.example.todolist.R.id.fragmentContainerView).navigate(direction)
         }
 
