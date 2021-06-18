@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/mainScreenFragment"
-        android:name="com.example.todolist.MainScreenFragment"
+        android:name="com.example.todolist.ui.fragment.MainScreenFragment"
         android:label="fragment_main_screen"
-        tools:layout="@layout/fragment_main_screen" >
+        tools:layout="@layout/fragment_main_screen">
         <action
             android:id="@+id/action_mainScreenFragment_to_addFragment"
             app:destination="@id/addFragment" />
@@ -19,12 +19,12 @@
     </fragment>
     <fragment
         android:id="@+id/addFragment"
-        android:name="com.example.todolist.AddFragment"
+        android:name="com.example.todolist.ui.fragment.AddFragment"
         android:label="fragment_add_to_do"
         tools:layout="@layout/fragment_add" />
     <fragment
         android:id="@+id/editFragment"
-        android:name="com.example.todolist.EditFragment"
+        android:name="com.example.todolist.ui.fragment.EditFragment"
         android:label="fragment_edit"
         tools:layout="@layout/fragment_edit" />
 </navigation>
