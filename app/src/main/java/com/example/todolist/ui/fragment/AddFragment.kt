@@ -3,13 +3,20 @@ package com.example.todolist.ui.fragment
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import android.widget.Toast.makeText
+import androidx.navigation.fragment.findNavController
+import com.example.todolist.database.ToDoDatabase
 import com.example.todolist.databinding.FragmentAddBinding
+import com.example.todolist.model.Item
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.*
 import java.util.*
 
 private const val ARG_PARAM1 = "param1"
@@ -37,12 +44,44 @@ class AddFragment : Fragment() {
     ): View {
         _binding = FragmentAddBinding.inflate(inflater, container, false)
 
+        val job = Job()
+
+        val uiScope = CoroutineScope(Dispatchers.Main + job)
+
+        val database = ToDoDatabase.getInstance(requireActivity())
+
+        val todoDao = database.todoDao()
+
         binding.dateEdt.setOnClickListener {
             getDate(binding.dateEdt)
         }
 
         binding.timeEdt.setOnClickListener {
             getTime(binding.timeEdt)
+        }
+
+        binding.createBtn.setOnClickListener {
+            if (editTextsIsEmpty()) {
+                val todo = Item(
+                    title = binding.taskTitleEdt.text.toString(),
+                    date = binding.dateEdt.text.toString(),
+                    time = binding.timeEdt.text.toString(),
+                    check = false
+                )
+
+                uiScope.launch {
+                    withContext(Dispatchers.IO) {
+                        todoDao.insertToDO(todo)
+                    }
+                }
+                findNavController().popBackStack()
+            } else {
+                Snackbar.make(
+                    binding.constraintLayout,
+                    "Ma'lumotlarni to'liq kiritingda oka.",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
         }
         return binding.root
     }
@@ -52,8 +91,8 @@ class AddFragment : Fragment() {
             cal.set(Calendar.HOUR_OF_DAY, hour)
             cal.set(Calendar.MINUTE, minute)
 
-            var trueHour = ""
-            var trueMinute = ""
+            var trueHour = hour.toString()
+            var trueMinute = minute.toString()
 
             if (hour < 10) {
                 trueHour = formatCorrection(hour)
@@ -79,11 +118,10 @@ class AddFragment : Fragment() {
         val month = cal.get(Calendar.MONTH)
         val day = cal.get(Calendar.DAY_OF_MONTH)
 
-
         val dateSetListener = DatePickerDialog(
             requireActivity(), { view, year, month, dayOfMonth ->
-                var trueMonth = ""
-                var trueDay = ""
+                var trueMonth = month.toString()
+                var trueDay = dayOfMonth.toString()
 
                 if (month + 1 < 10) {
                     trueMonth = formatCorrection(month + 1)
@@ -103,6 +141,14 @@ class AddFragment : Fragment() {
     private fun formatCorrection(int: Int): String {
         return "0$int"
     }
+
+    private fun editTextsIsEmpty(): Boolean {
+        if (binding.taskTitleEdt.text.isEmpty() || binding.timeEdt.text.isEmpty() || binding.dateEdt.text.isEmpty()) {
+            return false
+        }
+        return true
+    }
+
 
     companion object {
         @JvmStatic
