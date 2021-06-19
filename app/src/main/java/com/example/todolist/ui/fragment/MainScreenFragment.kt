@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.example.todolist.R
 import com.example.todolist.databinding.FragmentMainScreenBinding
 
 
@@ -37,11 +38,11 @@ class MainScreenFragment : Fragment() {
 
         binding.floatingActionButton.setOnClickListener {
             val direction = MainScreenFragmentDirections.actionMainScreenFragmentToAddFragment()
-            requireActivity().findNavController(com.example.todolist.R.id.fragmentContainerView).navigate(direction)
+            requireActivity().findNavController(R.id.fragmentContainerView).navigate(direction)
         }
 
         val navHostFragment =
-            requireActivity().supportFragmentManager.findFragmentById(com.example.todolist.R.id.nav_host_fragment) as NavHostFragment
+            requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomNav.setupWithNavController(navController)
 

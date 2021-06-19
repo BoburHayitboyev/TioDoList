@@ -14,8 +14,8 @@
             android:id="@+id/action_mainScreenFragment_to_addFragment"
             app:destination="@id/addFragment" />
         <action
-            android:id="@+id/action_mainScreenFragment_to_editFragment"
-            app:destination="@id/editFragment" />
+            android:id="@+id/action_mainScreenFragment_to_editFragment2"
+            app:destination="@id/editFragment2" />
     </fragment>
     <fragment
         android:id="@+id/addFragment"
@@ -23,8 +23,9 @@
         android:label="fragment_add_to_do"
         tools:layout="@layout/fragment_add" />
     <fragment
-        android:id="@+id/editFragment"
+        android:id="@+id/editFragment2"
         android:name="com.example.todolist.ui.fragment.EditFragment"
-        android:label="fragment_edit"
-        tools:layout="@layout/fragment_edit" />
+        tools:layout="@layout/fragment_edit"
+        android:label="EditFragment" />
+
 </navigation>

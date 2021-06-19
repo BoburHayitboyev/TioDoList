@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.example.todolist.R
+import com.example.todolist.adapter.ToDoAdapter
 import com.example.todolist.database.ToDoDatabase
 import com.example.todolist.databinding.FragmentHomeBinding
 import kotlinx.coroutines.CoroutineScope
@@ -45,10 +47,26 @@ class HomeFragment : Fragment() {
 
         val todoDao = database.todoDao()
 
+        val toDoAdapter =
+            ToDoAdapter(ArrayList(), toDoItemClickListener = ToDoAdapter.ToDoItemClickListener {
+                val direction = MainScreenFragmentDirections.actionMainScreenFragmentToEditFragment2()
+                requireActivity().findNavController(R.id.fragmentContainerView).navigate(direction)
+
+            }, ToDoAdapter.CheckBoxClickListener {
+
+            })
+
+
+        binding.recyclerView.apply {
+            adapter = toDoAdapter
+            setHasFixedSize(true)
+        }
+
         val liveData = todoDao.queryAllToDo()
 
         liveData.observe(requireActivity(), Observer {
-
+            toDoAdapter.toDoItem = it
+            toDoAdapter.notifyDataSetChanged()
         })
         return binding.root
     }

@@ -7,8 +7,9 @@ import com.example.todolist.databinding.TodoItemBinding
 import com.example.todolist.model.Item
 
 class ToDoAdapter(
-    private var item: List<Item>,
-    private val toDoItemClickListener: ToDoItemClickListener
+    var toDoItem: List<Item>,
+    val toDoItemClickListener: ToDoItemClickListener,
+    val checkBoxClickListener: CheckBoxClickListener
 ) :
     RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder>() {
 
@@ -19,24 +20,28 @@ class ToDoAdapter(
     }
 
     override fun onBindViewHolder(holder: ToDoViewHolder, position: Int) {
-        holder.binding.timeTv.text = item[position].time
-        holder.binding.todoTitleTv.text = item[position].title
+        holder.binding.timeTv.text = toDoItem[position].time
+        holder.binding.todoTitleTv.text = toDoItem[position].title
 
-        holder.binding.checkbox.isChecked = item[position].check
+        holder.binding.checkbox.isChecked = toDoItem[position].check
 
         holder.binding.root.setOnClickListener {
-            toDoItemClickListener.onToDoClick(item[position])
+            toDoItemClickListener.onToDoClick(toDoItem[position])
         }
 
         holder.binding.checkbox.setOnClickListener {
-
+            checkBoxClickListener.checkBoxClick(toDoItem[position])
         }
     }
 
-    override fun getItemCount() = item.size
+    override fun getItemCount() = toDoItem.size
 
     class ToDoItemClickListener(val toDoItemClickListener: (item: Item) -> Unit) {
         fun onToDoClick(item: Item) = toDoItemClickListener(item)
+    }
+
+    class CheckBoxClickListener(val checkBoxClickListener: (item:Item)->Unit){
+        fun checkBoxClick(item: Item) = checkBoxClickListener(item)
     }
 
     inner class ToDoViewHolder(val binding: TodoItemBinding) : RecyclerView.ViewHolder(binding.root)

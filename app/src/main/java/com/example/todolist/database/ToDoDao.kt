@@ -6,7 +6,7 @@ import com.example.todolist.model.Item
 
 @Dao
 interface ToDoDao {
-    @Query("SELECT * FROM todo")
+    @Query("SELECT * FROM todo ORDER by id DESC")
     fun queryAllToDo(): LiveData<List<Item>>
 
     @Insert
